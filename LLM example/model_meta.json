@@ -1,0 +1,37 @@
+{
+    "model_id": "interruption-category",
+    "model_name": "Interruption Category Classification Model",
+    "model_version": "1.0.0",
+    "tags": {
+        "task": "interruption_categorization",
+        "technology": "LLM",
+        "domain": "Manufacturing"
+    },
+    "description_short": "Classifies interruptions in manufacturing processes.",
+    "description": "This model classifies interruptions in manufacturing processes using a Large Language Model (LLM). It accepts text descriptions of interruptions and provides accurate categorization with confidence scores. The model can handle various input formats including plain text and structured data.",
+    "inputs": [
+        {
+            "name": "text_input",
+            "label": "Text Input",
+            "type": "textarea",
+            "required": true,
+            "description": "Text description of the interruption.",
+            "default": null
+        }
+    ],
+    "outputs": [
+        {
+            "name": "interruption_category",
+            "label": "Interruption Category",
+            "type": "string",
+            "description": "The predicted category of the interruption.",
+            "options": [
+                "laitevika",
+                "laatuongelma",
+                "materiaaliongelma",
+                "suunniteltu_huolto",
+                "kayttajavirhe"
+            ]
+        }
+    ]
+}

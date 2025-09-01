@@ -1,0 +1,6 @@
+{
+    "name": "Alice",
+    "age": 45,
+    "is_member": true,
+    "skills": ["Rust", "Python", "JavaScript2"]
+}

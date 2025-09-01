@@ -1,0 +1,29 @@
+{
+  "feature_names": [
+    "median_income",
+    "house_age",
+    "avg_rooms",
+    "avg_bedrooms",
+    "population",
+    "avg_occupancy",
+    "latitude",
+    "longitude"
+  ],
+  "feature_descriptions": {
+    "median_income": "Median income in block group (tens of thousands of dollars)",
+    "house_age": "Median house age in block group (years)",
+    "avg_rooms": "Average number of rooms per household",
+    "avg_bedrooms": "Average number of bedrooms per household",
+    "population": "Block group population",
+    "avg_occupancy": "Average number of household members",
+    "latitude": "Block group latitude",
+    "longitude": "Block group longitude"
+  },
+  "target_description": "Median house value in hundreds of thousands of dollars",
+  "model_metrics": {
+    "r2_score": 0.8026643899882914,
+    "rmse": 0.508517802132814,
+    "mae": 0.33054151220204575,
+    "mse": 0.25859035508598777
+  }
+}

@@ -1,0 +1,77 @@
+{
+    "model_id": "iris-classification",
+    "model_name": "Iris Classification Model",
+    "model_version": "1.0.0",
+    "tags": {
+        "task": "classification",
+        "dataset": "iris"
+    },
+    "description_short": "Machine learning model for classifying iris flowers into three species",
+    "description": "This model classifies iris flowers into one of three species (setosa, versicolor, or virginica) based on sepal and petal measurements. It uses the classic iris dataset and provides accurate species prediction based on morphological features.",
+    "inputs": [
+        {
+            "name": "sepal_length",
+            "label": "Sepal Length (cm)",
+            "type": "float",
+            "required": true,
+            "description": "Length of the iris sepal in centimeters",
+            "default": 5.0
+        },
+        {
+            "name": "sepal_width",
+            "label": "Sepal Width (cm)",
+            "type": "float",
+            "required": true,
+            "description": "Width of the iris sepal in centimeters",
+            "default": 3.5
+        },
+        {
+            "name": "petal_length",
+            "label": "Petal Length (cm)",
+            "type": "float",
+            "required": true,
+            "description": "Length of the iris petal in centimeters",
+            "default": 1.4
+        },
+        {
+            "name": "petal_width",
+            "label": "Petal Width (cm)",
+            "type": "float",
+            "required": true,
+            "description": "Width of the iris petal in centimeters",
+            "default": 0.2
+        }
+    ],
+    "input_groupings": [
+        {
+            "grouping": "sepal_measurements",
+            "description": "Sepal measurements",
+            "inputs": [
+                "sepal_length",
+                "sepal_width"
+            ]
+        },
+        {
+            "grouping": "petal_measurements",
+            "description": "Petal measurements",
+            "inputs": [
+                "petal_length",
+                "petal_width"
+            ]
+        }
+    ],
+    "outputs": [
+        {
+            "name": "species",
+            "label": "Predicted Species",
+            "type": "string",
+            "description": "The predicted iris species: setosa, versicolor, or virginica"
+        },
+        {
+            "name": "confidence",
+            "label": "Prediction Confidence",
+            "type": "float",
+            "description": "Confidence score for the prediction (0-1)"
+        }
+    ]
+}

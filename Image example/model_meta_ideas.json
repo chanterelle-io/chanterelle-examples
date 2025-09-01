@@ -1,0 +1,119 @@
+{
+    "model_id": "mnist-digit-classification",
+    "model_name": "MNIST Digit Classification Model",
+    "model_version": "1.0.0",
+    "tags": {
+        "task": "image_classification",
+        "dataset": "mnist",
+        "architecture": "cnn"
+    },
+    "description_short": "Convolutional Neural Network for classifying handwritten digits (0-9)",
+    "description": "This model classifies handwritten digits from 0 to 9 using a Convolutional Neural Network (CNN) trained on the MNIST dataset. It accepts 28x28 grayscale images and provides accurate digit prediction with confidence scores. The model can handle various input formats including image files, base64 encoded images, and pixel arrays.",
+    "inputs": [
+        {
+            "name": "image_file",
+            "label": "Image File",
+            "type": "file",
+            "required": true,
+            "description": "Path to an image file (PNG, JPG, JPEG). Image will be converted to 28x28 grayscale.",
+            "default": null
+        }
+    ],
+    "outputs": [
+        {
+            "name": "digit",
+            "label": "Predicted Digit",
+            "type": "integer",
+            "description": "The predicted digit (0-9)",
+            "value_range": "0-9"
+        },
+        {
+            "name": "confidence",
+            "label": "Prediction Confidence",
+            "type": "float",
+            "description": "Confidence score for the prediction (0-1)",
+            "value_range": "0.0-1.0"
+        },
+        {
+            "name": "probabilities",
+            "label": "Class Probabilities",
+            "type": "object",
+            "description": "Probability distribution across all digit classes (0-9)",
+            "structure": {
+                "0": "float", "1": "float", "2": "float", "3": "float", "4": "float",
+                "5": "float", "6": "float", "7": "float", "8": "float", "9": "float"
+            }
+        },
+        {
+            "name": "image_stats",
+            "label": "Image Statistics",
+            "type": "object",
+            "description": "Statistical information about the input image",
+            "structure": {
+                "mean_intensity": "float",
+                "std_intensity": "float", 
+                "non_zero_pixels": "integer",
+                "total_pixels": "integer"
+            }
+        }
+    ],
+    "model_info": {
+        "framework": "TensorFlow/Keras",
+        "architecture": "Convolutional Neural Network (CNN)",
+        "layers": [
+            "Conv2D (32 filters, 3x3)",
+            "MaxPooling2D (2x2)",
+            "Conv2D (64 filters, 3x3)",
+            "MaxPooling2D (2x2)",
+            "Conv2D (64 filters, 3x3)",
+            "Flatten",
+            "Dense (64 units, ReLU)",
+            "Dropout (0.5)",
+            "Dense (10 units, Softmax)"
+        ],
+        "training_dataset": "MNIST (60,000 training images, 10,000 test images)",
+        "expected_accuracy": "~98-99%",
+        "input_shape": [28, 28, 1],
+        "output_classes": 10
+    },
+    "usage_examples": [
+        {
+            "description": "Classify image from file path",
+            "input": {
+                "image_path": "/path/to/handwritten_digit.png"
+            },
+            "expected_output": {
+                "digit": 7,
+                "confidence": 0.985,
+                "probabilities": {"0": 0.001, "1": 0.002, "7": 0.985, "9": 0.012}
+            }
+        },
+        {
+            "description": "Classify using pixel array",
+            "input": {
+                "pixels": "[0, 0, 0, ..., 255, 128, 0, ...]"
+            },
+            "expected_output": {
+                "digit": 3,
+                "confidence": 0.923
+            }
+        }
+    ],
+    "visualization_outputs": [
+        {
+            "type": "table",
+            "name": "Classification Results",
+            "description": "Main prediction results and image statistics"
+        },
+        {
+            "type": "bar_chart", 
+            "name": "Probability Distribution",
+            "description": "Confidence scores for each digit class (0-9)"
+        },
+        {
+            "type": "line_chart",
+            "name": "Robustness Analysis", 
+            "description": "How prediction confidence changes with image noise"
+        }
+    ]
+}

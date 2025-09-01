@@ -1,0 +1,57 @@
+{
+    "model_id": "my-first-model",
+    "model_name": "My First Model",
+    "model_version": "1.0.0",
+    "description_short": "Short description of the model that is displayed in the Models catalog",
+    "description": "Long description of the model that is displayed in the Model Data page",
+    "inputs": [
+        {
+            "name": "input_value",
+            "label": "Input Value",
+            "type": "float",
+            "required": true,
+            "description": "The main input parameter",
+            "default": 1.0
+        },
+        {
+            "name": "input_text",
+            "label": "Input Text",
+            "type": "textarea",
+            "required": true,
+            "description": "The main input text parameter",
+            "default": "Sample text"
+        },
+        {
+            "name": "input_file",
+            "label": "Input File",
+            "type": "file",
+            "required": true,
+            "description": "The main input file parameter",
+            "default": null,
+            "constraints": {
+                "extensions": [
+                    "json"
+                ],
+                "multiple": false
+            }
+        }
+    ],
+    "input_groupings": [
+        {
+            "grouping": "values",
+            "description": "A group of input values",
+            "inputs": [
+                "input_value",
+                "input_text"
+            ]
+        }
+    ],
+    "outputs": [
+        {
+            "name": "result",
+            "label": "Result",
+            "type": "float",
+            "description": "The computed result"
+        }
+    ]
+}

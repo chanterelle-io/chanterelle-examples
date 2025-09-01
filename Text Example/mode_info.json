@@ -1,0 +1,114 @@
+"model_architecture": {
+    "type": "Sequential Neural Network",
+    "framework": "TensorFlow/Keras",
+    "layers": [
+        {
+            "type": "TensorFlow Hub Embedding",
+            "name": "nnlm-en-dim50",
+            "url": "https://tfhub.dev/google/nnlm-en-dim50/2",
+            "output_dim": 50,
+            "trainable": true
+        },
+        {
+            "type": "Dense",
+            "units": 16,
+            "activation": "relu"
+        },
+        {
+            "type": "Dropout",
+            "rate": 0.2
+        },
+        {
+            "type": "Dense",
+            "units": 1,
+            "activation": "sigmoid"
+        }
+    ],
+    "optimizer": "adam",
+    "loss_function": "binary_crossentropy",
+    "metrics": [
+        "accuracy"
+    ]
+},
+"training_info": {
+    "dataset": "IMDB Movie Reviews",
+    "train_samples": 25000,
+    "test_samples": 25000,
+    "epochs": 10,
+    "batch_size": 512,
+    "validation_split": "test_set_used_for_validation",
+    "preprocessing": {
+        "tokenization": "automatic_via_tfhub",
+        "max_sequence_length": "variable",
+        "vocabulary_handling": "pre_trained_embeddings"
+    }
+},
+"performance_metrics": {
+    "test_accuracy": 0.85,
+    "test_loss": 0.35,
+    "typical_inference_time_ms": 50,
+    "model_size_mb": 15
+},
+"use_cases": [
+    {
+        "title": "Movie Review Analysis",
+        "description": "Analyze customer reviews of movies to understand sentiment trends"
+    },
+    {
+        "title": "Content Moderation",
+        "description": "Pre-filter user-generated content based on sentiment"
+    },
+    {
+        "title": "Market Research",
+        "description": "Analyze product reviews and feedback for business insights"
+    },
+    {
+        "title": "Educational Tool",
+        "description": "Demonstrate basic NLP and sentiment analysis concepts"
+    }
+],
+"limitations": [
+    "Trained specifically on movie reviews - may not generalize well to other domains",
+    "English language only",
+    "Binary classification only (positive/negative) - no neutral sentiment",
+    "May struggle with sarcasm or complex sentiment expressions",
+    "Performance may degrade on very short texts (< 10 words)"
+],
+"technical_requirements": {
+    "python_version": ">=3.7",
+    "tensorflow_version": ">=2.8.0",
+    "required_packages": [
+        "tensorflow",
+        "tensorflow-hub",
+        "tensorflow-datasets",
+        "tf-keras"
+    ],
+    "hardware_requirements": {
+        "minimum_ram_gb": 4,
+        "recommended_ram_gb": 8,
+        "gpu_required": false,
+        "gpu_recommended": true
+    }
+},
+"example_usage": {
+    "code_snippet": "import tensorflow as tf\nmodel = tf.keras.models.load_model('imdb_tfhub_model')\nprediction = model.predict(['This movie was great!'])[0][0]\nsentiment = 'Positive' if prediction > 0.5 else 'Negative'",
+    "sample_inputs": [
+        "This movie was absolutely fantastic!",
+        "Terrible film, waste of time",
+        "Pretty good movie with great acting"
+    ],
+    "expected_outputs": [
+        {
+            "sentiment": "Positive",
+            "confidence": 0.92
+        },
+        {
+            "sentiment": "Negative",
+            "confidence": 0.88
+        },
+        {
+            "sentiment": "Positive",
+            "confidence": 0.75
+        }
+    ]
+}

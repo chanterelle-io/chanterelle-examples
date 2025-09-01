@@ -1,0 +1,55 @@
+{
+    "model_id": "iris-classification",
+    "version": "1.0.0",
+    "content": [
+        {
+            "type": "section",
+            "id": "intro",
+            "title": "Introduction",
+            "description": "This section provides an overview of the Iris dataset and the classification task.",
+            "items": [
+                {
+                    "$href": "graphs/text_item_example.json"
+                }
+            ]
+        },
+        {
+            "type": "section",
+            "id": "length_width_img",
+            "title": "Length vs Width Images",
+            "description": "Scatter plots showing the relationship between sepal length and width, and petal length and width.",
+            "items_per_row": 2,
+            "items": [
+                {
+                    "type": "image",
+                    "id": "chart1",
+                    "title": "Sepal Length vs Sepal Width",
+                    "file_path": "graphs/sepal_length_vs_width.png"
+                },
+                {
+                    "type": "image",
+                    "id": "chart2",
+                    "title": "Petal Length vs Petal Width",
+                    "file_path": "graphs/petal_length_vs_width.png"
+                }
+            ],
+            "comment": "These scatter plots illustrate the relationships between sepal length and width, as well as petal length and width, for the different species of iris."
+        },
+        {
+            "type": "section",
+            "id": "length_width_charts",
+            "title": "Length vs Width Charts",
+            "description": "Scatter plots showing the relationship between sepal length and width, and petal length and width.",
+            "items_per_row": 2,
+            "items": [
+                {
+                    "$href": "graphs/sepal_data.json"
+                },
+                {
+                    "$href": "graphs/petal_data.json"
+                }
+            ],
+            "comment": "These scatter plots illustrate the relationships between sepal length and width, as well as petal length and width, for the different species of iris."
+        }
+    ]
+}

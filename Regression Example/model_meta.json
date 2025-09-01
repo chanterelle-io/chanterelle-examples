@@ -1,0 +1,119 @@
+{
+    "model_id": "california-housing-regression",
+    "model_name": "California Housing Price Prediction Model",
+    "model_version": "1.0.0",
+    "tags": {
+        "task": "regression",
+        "dataset": "california_housing"
+    },
+    "description_short": "Machine learning model for predicting California housing prices",
+    "description": "This model predicts median house values in California districts based on various demographic and geographic features. It uses the California housing dataset and provides accurate price predictions based on income, location, housing characteristics, and population data.",
+    "inputs": [
+        {
+            "name": "median_income",
+            "label": "Median Income (tens of thousands)",
+            "type": "float",
+            "required": true,
+            "description": "Median income in the block group, measured in tens of thousands of dollars",
+            "default": 3.87
+        },
+        {
+            "name": "house_age",
+            "label": "House Age (years)",
+            "type": "float",
+            "required": true,
+            "description": "Median age of houses in the block group, measured in years",
+            "default": 28.0
+        },
+        {
+            "name": "avg_rooms",
+            "label": "Average Rooms per Household",
+            "type": "float",
+            "required": true,
+            "description": "Average number of rooms per household in the block group",
+            "default": 5.43
+        },
+        {
+            "name": "avg_bedrooms",
+            "label": "Average Bedrooms per Household",
+            "type": "float",
+            "required": true,
+            "description": "Average number of bedrooms per household in the block group",
+            "default": 1.10
+        },
+        {
+            "name": "population",
+            "label": "Population",
+            "type": "float",
+            "required": true,
+            "description": "Total population in the block group",
+            "default": 3000.0
+        },
+        {
+            "name": "avg_occupancy",
+            "label": "Average Occupancy",
+            "type": "float",
+            "required": true,
+            "description": "Average number of household members (occupancy rate)",
+            "default": 3.07
+        },
+        {
+            "name": "latitude",
+            "label": "Latitude",
+            "type": "float",
+            "required": true,
+            "description": "Latitude coordinate of the block group location",
+            "default": 34.26
+        },
+        {
+            "name": "longitude",
+            "label": "Longitude",
+            "type": "float",
+            "required": true,
+            "description": "Longitude coordinate of the block group location",
+            "default": -118.49
+        }
+    ],
+    "input_groupings": [
+        {
+            "grouping": "economic_factors",
+            "description": "Economic and demographic factors",
+            "inputs": [
+                "median_income",
+                "population",
+                "avg_occupancy"
+            ]
+        },
+        {
+            "grouping": "housing_characteristics",
+            "description": "Housing characteristics",
+            "inputs": [
+                "house_age",
+                "avg_rooms",
+                "avg_bedrooms"
+            ]
+        },
+        {
+            "grouping": "location",
+            "description": "Geographic location",
+            "inputs": [
+                "latitude",
+                "longitude"
+            ]
+        }
+    ],
+    "outputs": [
+        {
+            "name": "predicted_price",
+            "label": "Predicted House Price",
+            "type": "float",
+            "description": "Predicted median house value in hundreds of thousands of dollars"
+        },
+        {
+            "name": "price_range",
+            "label": "Price Range Category",
+            "type": "string",
+            "description": "Categorical price range: low (<$200k), medium ($200k-$400k), high (>$400k)"
+        }
+    ]
+}

@@ -1,0 +1,70 @@
+{
+    "model_id": "imdb-sentiment-classifier",
+    "model_name": "IMDB Movie Review Sentiment Classifier",
+    "model_version": "1.0.0",
+    "tags": {
+        "task": "binary_classification",
+        "dataset": "imdb_reviews",
+        "domain": "text_analysis",
+        "nlp": "sentiment_analysis"
+    },
+    "description_short": "Neural network model for classifying movie review sentiment as positive or negative",
+    "description": "This model analyzes movie reviews and predicts whether they express positive or negative sentiment. Built using TensorFlow Hub pre-trained embeddings and trained on the IMDB movie reviews dataset containing 50,000 reviews. The model uses modern NLP techniques with transfer learning for accurate sentiment classification.",
+    "inputs": [
+        {
+            "name": "review_text",
+            "label": "Movie Review Text",
+            "type": "textarea",
+            "required": true,
+            "description": "Raw text of a movie review in English. Can be any length - the model will handle preprocessing automatically.",
+            "example": "This movie was absolutely fantastic! The acting was superb and the plot kept me engaged throughout.",
+            "constraints": {
+                "min_length": 1,
+                "max_length": 10000,
+                "language": "english"
+            }
+        }
+    ],
+    "input_groupings": [
+        {
+            "grouping": "text_input",
+            "description": "Natural language text input",
+            "inputs": [
+                "review_text"
+            ]
+        }
+    ],
+    "outputs": [
+        {
+            "name": "sentiment",
+            "label": "Sentiment Classification",
+            "type": "string",
+            "description": "Predicted sentiment: 'Positive' or 'Negative'",
+            "possible_values": ["Positive", "Negative"]
+        },
+        {
+            "name": "confidence",
+            "label": "Prediction Confidence",
+            "type": "float",
+            "description": "Confidence score between 0 and 1, where higher values indicate more confident predictions",
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        },
+        {
+            "name": "raw_score",
+            "label": "Raw Model Output",
+            "type": "float",
+            "description": "Raw sigmoid output where values > 0.5 indicate positive sentiment, < 0.5 indicate negative sentiment",
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    ],
+    "python_environment": {
+        "type": "venv",
+        "path": "C:\\Users\\USR366296\\Documents\\Chanterelle examples\\Image example\\tf-env"
+    }
+}
