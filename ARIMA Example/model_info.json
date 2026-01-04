@@ -1,0 +1,189 @@
+{
+    "model_id": "sarima",
+    "model_name": "SARIMA Model",
+    "model_version": "1.0.0",
+    "description_short": "Demo of SARIMA model on airline passenger time series data",
+    "description": "This is a demonstration of a Seasonal ARIMA (SARIMA) model applied to the classic airline passenger dataset. SARIMA extends ARIMA by capturing seasonal patterns in addition to trend and autoregressive components. The model uses SARIMA(1,1,1)(1,1,1,12) to forecast monthly passenger numbers.",
+    "tags": {
+        "domain": "time series",
+        "type": "forecasting",
+        "data": "airline passengers"
+    },
+    "inputs": [
+        {
+            "name": "forecast_steps",
+            "label": "Forecast Steps",
+            "type": "int",
+            "required": true,
+            "description": "Number of future time periods to forecast",
+            "default": 36,
+            "min": 1,
+            "max": 120
+        },
+        {
+            "name": "p",
+            "label": "AR Order (p)",
+            "type": "int",
+            "required": false,
+            "description": "The autoregressive order in SARIMA(p,d,q)",
+            "default": 1,
+            "min": 0,
+            "max": 5
+        },
+        {
+            "name": "d",
+            "label": "Differencing Order (d)",
+            "type": "int",
+            "required": false,
+            "description": "The degree of differencing in SARIMA(p,d,q)",
+            "default": 1,
+            "min": 0,
+            "max": 2
+        },
+        {
+            "name": "q",
+            "label": "MA Order (q)",
+            "type": "int",
+            "required": false,
+            "description": "The moving average order in SARIMA(p,d,q)",
+            "default": 1,
+            "min": 0,
+            "max": 5
+        },
+        {
+            "name": "P",
+            "label": "Seasonal AR Order (P)",
+            "type": "int",
+            "required": false,
+            "description": "The seasonal autoregressive order in SARIMA(P,D,Q,s)",
+            "default": 1,
+            "min": 0,
+            "max": 3
+        },
+        {
+            "name": "D",
+            "label": "Seasonal Differencing (D)",
+            "type": "int",
+            "required": false,
+            "description": "The seasonal differencing order in SARIMA(P,D,Q,s)",
+            "default": 1,
+            "min": 0,
+            "max": 2
+        },
+        {
+            "name": "Q",
+            "label": "Seasonal MA Order (Q)",
+            "type": "int",
+            "required": false,
+            "description": "The seasonal moving average order in SARIMA(P,D,Q,s)",
+            "default": 1,
+            "min": 0,
+            "max": 3
+        },
+        {
+            "name": "s",
+            "label": "Seasonal Period (s)",
+            "type": "int",
+            "required": false,
+            "description": "The seasonal period length (e.g., 12 for monthly data)",
+            "default": 12,
+            "min": 2,
+            "max": 52
+        },
+        {
+            "name": "confidence_level",
+            "label": "Confidence Level",
+            "type": "float",
+            "required": false,
+            "description": "Confidence level for prediction intervals (0.0 to 1.0)",
+            "default": 0.95,
+            "min": 0.5,
+            "max": 0.99
+        }
+    ],
+    "input_groupings": [
+        {
+            "grouping": "forecast_parameters",
+            "description": "Forecasting configuration parameters",
+            "inputs": [
+                "forecast_steps",
+                "confidence_level"
+            ]
+        },
+        {
+            "grouping": "arima_parameters",
+            "description": "ARIMA model parameters (p,d,q)",
+            "inputs": [
+                "p",
+                "d",
+                "q"
+            ]
+        },
+        {
+            "grouping": "seasonal_parameters",
+            "description": "Seasonal ARIMA parameters (P,D,Q,s)",
+            "inputs": [
+                "P",
+                "D",
+                "Q",
+                "s"
+            ]
+        }
+    ],
+    "outputs": [
+        {
+            "name": "forecast_values",
+            "label": "Forecast Values",
+            "type": "array",
+            "description": "Array of forecasted values for the specified time periods"
+        },
+        {
+            "name": "forecast_dates",
+            "label": "Forecast Dates",
+            "type": "array",
+            "description": "Array of dates corresponding to the forecasted values"
+        },
+        {
+            "name": "confidence_interval_lower",
+            "label": "Lower Confidence Interval",
+            "type": "array",
+            "description": "Lower bounds of the confidence intervals for forecasts"
+        },
+        {
+            "name": "confidence_interval_upper",
+            "label": "Upper Confidence Interval",
+            "type": "array",
+            "description": "Upper bounds of the confidence intervals for forecasts"
+        },
+        {
+            "name": "model_summary",
+            "label": "Model Summary",
+            "type": "object",
+            "description": "Statistical summary of the fitted SARIMA model"
+        },
+        {
+            "name": "aic",
+            "label": "AIC Score",
+            "type": "float",
+            "description": "Akaike Information Criterion for model comparison"
+        },
+        {
+            "name": "bic",
+            "label": "BIC Score",
+            "type": "float",
+            "description": "Bayesian Information Criterion for model comparison"
+        },
+        {
+            "name": "forecast_plot",
+            "label": "Forecast Visualization",
+            "type": "image",
+            "description": "Plot showing historical data, forecast, and confidence intervals"
+        },
+        {
+            "name": "residuals_plot",
+            "label": "Residuals Analysis",
+            "type": "image",
+            "description": "Plot showing residuals analysis for model diagnostics"
+        }
+    ]
+}

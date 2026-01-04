@@ -1,0 +1,132 @@
+{
+    "model_id": "sarima",
+    "version": "1.0.0",
+    "content": [
+        {
+            "type": "section",
+            "id": "intro",
+            "title": "SARIMA Model Analysis",
+            "description": "This section provides an overview of the Seasonal ARIMA (SARIMA) model applied to the airline passenger dataset, demonstrating time series forecasting with seasonal patterns.",
+            "items": [
+                {
+                    "type": "text",
+                    "id": "overview",
+                    "title": "Model Overview",
+                    "content": [
+                        {
+                            "id": "sarima_desc",
+                            "type": "paragraph",
+                            "text": "The SARIMA(1,1,1)(1,1,1,12) model combines traditional ARIMA components with seasonal patterns to forecast monthly airline passenger numbers. This model captures both short-term autocorrelations and yearly seasonal cycles in the data."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "section",
+            "id": "data_exploration",
+            "title": "Data Exploration & Preprocessing",
+            "description": "Initial analysis of the airline passenger data and preprocessing steps to achieve stationarity.",
+            "items_per_row": 1,
+            "items": [
+                {
+                    "type": "image",
+                    "id": "raw_data",
+                    "title": "Original Passenger Data",
+                    "file_path": "findings-graphs/passenger-data.png",
+                    "description": "Monthly airline passengers from 1949-1960 showing clear upward trend and seasonal patterns"
+                },
+                {
+                    "type": "image",
+                    "id": "differenced_data",
+                    "title": "First Differenced Series",
+                    "file_path": "findings-graphs/first-difference.png",
+                    "description": "First differenced series to remove trend and achieve stationarity for SARIMA modeling"
+                }
+            ],
+            "comment": "The original data shows a strong upward trend with clear seasonal patterns. First differencing helps achieve stationarity required for ARIMA modeling."
+        },
+        {
+            "type": "section",
+            "id": "model_identification",
+            "title": "Model Identification",
+            "description": "Analysis of autocorrelation and partial autocorrelation functions to determine appropriate SARIMA parameters.",
+            "items": [
+                {
+                    "type": "image",
+                    "id": "acf_pacf",
+                    "title": "ACF and PACF Analysis",
+                    "file_path": "findings-graphs/acf-pacf.png",
+                    "description": "Autocorrelation (ACF) and Partial Autocorrelation (PACF) plots used to identify optimal p, q parameters for the SARIMA model"
+                }
+            ],
+            "comment": "The ACF shows slow decay suggesting AR terms, while PACF shows cutoff after lag 1, indicating AR(1) component. Seasonal patterns are visible at 12-month intervals."
+        },
+        {
+            "type": "section",
+            "id": "model_results",
+            "title": "Model Performance & Forecasting",
+            "description": "SARIMA model fitting results, forecasts, and model validation through residual analysis.",
+            "items_per_row": 1,
+            "items": [
+                {
+                    "type": "image",
+                    "id": "forecasts",
+                    "title": "SARIMA Forecasts",
+                    "file_path": "findings-graphs/sarima-predictions.png",
+                    "description": "36-month ahead forecasts with confidence intervals showing continued growth trend and seasonal patterns"
+                }
+            ],
+            "comment": "The SARIMA model successfully captures both trend and seasonal components. Forecasts show realistic continuation of historical patterns with appropriate uncertainty quantification."
+        },
+        {
+            "type": "section",
+            "id": "model_diagnostics",
+            "title": "Model Diagnostics",
+            "description": "Detailed analysis of model residuals to validate model assumptions and identify any remaining patterns.",
+            "items_per_row": 1,
+            "items": [
+                {
+                    "type": "image",
+                    "id": "residuals",
+                    "title": "Residuals Analysis",
+                    "file_path": "findings-graphs/sarima-residuals.png",
+                    "description": "Model residuals showing approximately white noise behavior, indicating good model fit"
+                },
+                {
+                    "type": "image",
+                    "id": "residuals_autocorr",
+                    "title": "Residuals Autocorrelation",
+                    "file_path": "findings-graphs/sarima-residuals-autocorr.png",
+                    "description": "ACF of residuals showing no significant autocorrelation, confirming the model has captured all temporal patterns"
+                }
+            ],
+            "comment": "The residuals show no significant autocorrelation patterns, indicating the SARIMA model has successfully captured the underlying time series structure. This validates our model specification."
+        },
+        {
+            "type": "section",
+            "id": "conclusions",
+            "title": "Key Findings & Conclusions",
+            "description": "Summary of SARIMA model performance and practical insights for time series forecasting.",
+            "items": [
+                {
+                    "type": "text",
+                    "id": "findings",
+                    "title": "Model Performance Summary",
+                    "content": [
+                        {
+                            "text": "The SARIMA(1,1,1)(1,1,1,12) model demonstrates excellent performance on the airline passenger dataset:\n\n• Successfully captures both trend and seasonal components\n• Residuals approximate white noise, indicating good model fit\n• Forecasts show realistic continuation of historical patterns\n• Confidence intervals appropriately widen over time\n• Model diagnostics confirm proper specification\n\nThis demonstrates SARIMA's effectiveness for seasonal time series forecasting applications.",
+                            "bulletPoints": [
+                                "Successfully captures both trend and seasonal components",
+                                "Residuals approximate white noise, indicating good model fit",
+                                "Forecasts show realistic continuation of historical patterns",
+                                "Confidence intervals appropriately widen over time",
+                                "Model diagnostics confirm proper specification"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

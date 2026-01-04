@@ -121,50 +121,6 @@ def format_detailed_error(exception: Exception, context: str = "") -> dict:
     
     return detailed_error
 
-
-def format_simple_error_with_line(exception: Exception) -> dict:
-    """
-    Format a simple error message with just the line number.
-    
-    Args:
-        exception: The caught exception
-        
-    Returns:
-        Dictionary with error message including line number
-    """
-    # Get the current exception info
-    exc_type, exc_value, exc_tb = sys.exc_info()
-    
-    # Format the basic error message
-    error_msg = str(exception)
-    
-    # Extract line number from traceback
-    line_info = None
-    if exc_tb:
-        tb_list = traceback.extract_tb(exc_tb)
-        # Look for line numbers from user code first, then any code
-        for frame in reversed(tb_list):
-            if 'handler_io.py' in frame.filename:
-                line_info = f"line {frame.lineno} in {os.path.basename(frame.filename)}"
-                break
-        
-        # If no handler_io.py found, try to get line from any frame (fallback)
-        if not line_info and tb_list:
-            # Get the last frame that has a line number
-            for frame in reversed(tb_list):
-                if frame.lineno > 0:  # Make sure we have a valid line number
-                    line_info = f"line {frame.lineno}"
-                    break
-    
-    # Create simple error response with line number
-    if line_info:
-        error_with_line = f"{error_msg} ({line_info})"
-    else:
-        error_with_line = error_msg
-    
-    return {"error": error_with_line}
-
-
 class MLModelHandler:
     """
     ML Model Handler that follows SageMaker pattern.
@@ -222,10 +178,10 @@ class MLModelHandler:
     def health_check(self):
         """Check if the model is ready."""
         try:
-            if self.model is not None and self.is_initialized:
+            if self.is_initialized:
                 return {"pong": True, "status": "ready"}
             else:
-                return {"pong": False, "status": "not_ready", "error": "Model not loaded"}
+                return {"pong": False, "status": "error", "error": "Model not loaded"}
         except Exception as e:
             detailed_error = format_detailed_error(e, "health check")
             return {"pong": False, "status": "error", **detailed_error}
@@ -277,7 +233,7 @@ class MLModelHandler:
 
     def run_communication_loop(self):
         """Run the main communication loop for stdin/stdout protocol."""
-    # IO isolation is performed once at process start
+        # IO isolation is performed once at process start
         # Initialize model
         init_result = self.initialize()
         if init_result["status"] != "ready":
@@ -285,9 +241,12 @@ class MLModelHandler:
             _send_protocol_json(init_result)
             # Also exit to signal fatal init failure
             sys.exit(1)
-        
+        else:
+            # Announce readiness once for the Rust-side handshake
+            _send_protocol_json({"status": "ready", "message": "Model loaded successfully"})
+
         print("Model ready. Enter JSON requests (one per line):", file=sys.stderr)
-        
+
         for line in sys.stdin:
             line = line.strip()
             if not line:
@@ -308,12 +267,14 @@ if __name__ == "__main__":
     # Get the user's handler file path from command line argument
     _setup_io_isolation()
     if len(sys.argv) < 2:
-        print("Error: handler_io.py path required as argument", file=sys.stderr)
+        # print("Error: handler_io.py path required as argument", file=sys.stderr)
+        _send_protocol_json({"status": "error", "error": "handler_io.py path required as argument"})
         sys.exit(1)
     
     handler_path = sys.argv[1]
     if not os.path.exists(handler_path):
-        print(f"Error: Handler file not found: {handler_path}", file=sys.stderr)
+        # print(f"Error: Handler file not found: {handler_path}", file=sys.stderr)
+        _send_protocol_json({"status": "error", "error": f"Handler file not found: {handler_path}"})
         sys.exit(1)
     
     # Create and run the handler
@@ -326,8 +287,10 @@ if __name__ == "__main__":
         error_message = f"Error: Failed to initialize handler: {detailed_error['summary']}"
         
         # Print summary to stderr for immediate visibility
-        print(error_message, file=sys.stderr)
-        
+        # print(error_message, file=sys.stderr)
+        _send_protocol_json({"status": "error", "error": error_message})
+
         # Also print detailed error info to stderr for debugging
         print(f"Detailed error info: {json.dumps(detailed_error, indent=2)}", file=sys.stderr)
+        # _send_protocol_json({"status": "error", "error": f"Detailed error info: {json.dumps(detailed_error, indent=2)}"})
         sys.exit(1)
