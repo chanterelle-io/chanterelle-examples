@@ -1,0 +1,183 @@
+{
+    "model_id": "california-housing",
+    "version": "1.0.0",
+    "content": [
+        {
+            "type": "section",
+            "id": "overview",
+            "title": "Model Overview",
+            "description": "Random Forest Regression on California Housing data",
+            "color": "green",
+            "collapsible": true,
+            "items_per_row": 2,
+            "items": [
+                {
+                    "type": "table",
+                    "title": "Model Specifications",
+                    "data": {
+                        "columns": [
+                            {"header": "Property", "field": "key"},
+                            {"header": "Details", "field": "value"}
+                        ],
+                        "rows": [
+                            {"key": "Algorithm", "value": "Random Forest Regression"},
+                            {"key": "Framework", "value": "scikit-learn"},
+                            {"key": "Model Format", "value": "joblib"},
+                            {"key": "Dataset", "value": "California Housing (sklearn)"},
+                            {"key": "Target", "value": "Median house value (hundreds of thousands of $)"},
+                            {"key": "Target Range", "value": "$0.15k – $5.00k"},
+                            {"key": "Target Mean", "value": "$2.07k"}
+                        ]
+                    }
+                },
+                {
+                    "type": "table",
+                    "title": "Model Hyperparameters",
+                    "data": {
+                        "columns": [
+                            {"header": "Parameter", "field": "param"},
+                            {"header": "Value", "field": "value"},
+                            {"header": "Description", "field": "description"}
+                        ],
+                        "rows": [
+                            {"param": "n_estimators", "value": "100", "description": "Number of trees in the forest"},
+                            {"param": "max_depth", "value": "15", "description": "Maximum depth of each tree"},
+                            {"param": "min_samples_split", "value": "5", "description": "Minimum samples required to split a node"},
+                            {"param": "min_samples_leaf", "value": "2", "description": "Minimum samples required at a leaf node"},
+                            {"param": "random_state", "value": "42", "description": "Random seed for reproducibility"}
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "type": "section",
+            "id": "performance",
+            "title": "Model Performance",
+            "description": "Evaluation metrics on the held-out test set",
+            "color": "blue",
+            "collapsible": true,
+            "items_per_row": 2,
+            "items": [
+                {
+                    "type": "table",
+                    "title": "Evaluation Metrics",
+                    "data": {
+                        "columns": [
+                            {"header": "Metric", "field": "metric"},
+                            {"header": "Value", "field": "value"},
+                            {"header": "Description", "field": "description"}
+                        ],
+                        "rows": [
+                            {"metric": "R² Score", "value": "0.8026", "description": "Proportion of variance explained by the model"},
+                            {"metric": "RMSE", "value": "$0.51k", "description": "Root Mean Squared Error"},
+                            {"metric": "MAE", "value": "$0.33k", "description": "Mean Absolute Error"},
+                            {"metric": "MSE", "value": "0.2587", "description": "Mean Squared Error"}
+                        ]
+                    }
+                },
+                {
+                    "type": "bar_chart",
+                    "title": "Error Metrics Comparison",
+                    "comment": "Lower is better. Values in hundreds of thousands of dollars.",
+                    "data": {
+                        "bars": [
+                            {"label": "RMSE", "value": 0.51},
+                            {"label": "MAE", "value": 0.33},
+                            {"label": "MSE", "value": 0.2587}
+                        ],
+                        "axis": {
+                            "x": {"label": "Metric"},
+                            "y": {"label": "Error Value ($k)"}
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "type": "section",
+            "id": "dataset",
+            "title": "Dataset Statistics",
+            "description": "Summary of the training and test dataset",
+            "color": "purple",
+            "collapsible": true,
+            "items_per_row": 2,
+            "items": [
+                {
+                    "type": "table",
+                    "title": "Train / Test Split",
+                    "data": {
+                        "columns": [
+                            {"header": "Split", "field": "split"},
+                            {"header": "Samples", "field": "samples"},
+                            {"header": "Share", "field": "pct"}
+                        ],
+                        "rows": [
+                            {"split": "Training", "samples": "16,512", "pct": "80%"},
+                            {"split": "Test", "samples": "4,128", "pct": "20%"},
+                            {"split": "Total", "samples": "20,640", "pct": "100%"}
+                        ]
+                    }
+                },
+                {
+                    "type": "table",
+                    "title": "Input Features",
+                    "data": {
+                        "columns": [
+                            {"header": "Feature", "field": "feature"},
+                            {"header": "Description", "field": "description"}
+                        ],
+                        "rows": [
+                            {"feature": "median_income", "description": "Median income in block group (tens of thousands of dollars)"},
+                            {"feature": "house_age", "description": "Median house age in block group (years)"},
+                            {"feature": "avg_rooms", "description": "Average number of rooms per household"},
+                            {"feature": "avg_bedrooms", "description": "Average number of bedrooms per household"},
+                            {"feature": "population", "description": "Block group population"},
+                            {"feature": "avg_occupancy", "description": "Average number of household members"},
+                            {"feature": "latitude", "description": "Block group latitude (decimal degrees)"},
+                            {"feature": "longitude", "description": "Block group longitude (decimal degrees)"}
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "type": "section",
+            "id": "example",
+            "title": "Example Prediction",
+            "description": "Sample SF Bay Area block group from the training script",
+            "color": "orange",
+            "collapsible": true,
+            "items_per_row": 2,
+            "items": [
+                {
+                    "type": "table",
+                    "title": "Example Inputs",
+                    "comment": "San Francisco Bay Area block group (lat 37.88, lon -122.23)",
+                    "data": {
+                        "columns": [
+                            {"header": "Feature", "field": "feature"},
+                            {"header": "Value", "field": "value"},
+                            {"header": "Unit", "field": "unit"}
+                        ],
+                        "rows": [
+                            {"feature": "median_income", "value": "8.33", "unit": "tens of $k (~$83,300)"},
+                            {"feature": "house_age", "value": "41.0", "unit": "years"},
+                            {"feature": "avg_rooms", "value": "6.98", "unit": "rooms / household"},
+                            {"feature": "avg_bedrooms", "value": "1.02", "unit": "bedrooms / household"},
+                            {"feature": "population", "value": "322", "unit": "people"},
+                            {"feature": "avg_occupancy", "value": "2.56", "unit": "people / household"},
+                            {"feature": "latitude", "value": "37.88", "unit": "°N"},
+                            {"feature": "longitude", "value": "-122.23", "unit": "°W"}
+                        ]
+                    }
+                },
+                {
+                    "type": "markdown",
+                    "title": "Usage",
+                    "content": "```python\nimport joblib\nimport numpy as np\n\nmodel = joblib.load('california_housing_model.joblib')\n\nX = np.array([[\n    8.33,    # median_income (~$83,300)\n    41.0,    # house_age (years)\n    6.98,    # avg_rooms\n    1.02,    # avg_bedrooms\n    322.0,   # population\n    2.56,    # avg_occupancy\n    37.88,   # latitude\n    -122.23  # longitude\n]])\n\nprice = model.predict(X)[0]\nprint(f'Predicted: ${price:.2f} hundred k')\n```"
+                }
+            ]
+        }
+    ]
+}

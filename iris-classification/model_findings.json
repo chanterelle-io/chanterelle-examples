@@ -1,0 +1,117 @@
+{
+    "model_id": "iris-classification",
+    "version": "1.0.0",
+    "content": [
+        {
+            "type": "section",
+            "title": "Model Specs",
+            "description": "Model Details and Performance Metrics",
+            "items": [
+                {
+                    "type": "table",
+                    "title": "Classification Results",
+                    "data": {
+                        "columns": [
+                            {
+                                "header": "Model Specification",
+                                "field": "key"
+                            },
+                            {
+                                "header": "Info",
+                                "field": "value"
+                            }
+                        ],
+                        "rows": [
+                            {
+                                "key": "Model type",
+                                "value": "Random Forest Classifier"
+                            },
+                            {
+                                "key": "Framework",
+                                "value": "scikit-learn"
+                            },
+                            {
+                                "key": "Model format",
+                                "value": "joblib"
+                            },
+                            {
+                                "key": "Accuracy",
+                                "value": "99%"
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "type": "section",
+            "title": "Length vs Width Charts",
+            "description": "Select a chart type",
+            "dropdown": {
+                "enabled": true,
+                "default_selection": "chanterelle_charts",
+                "options": [
+                    {
+                        "id": "chanterelle_charts",
+                        "label": "Chanterelle Charts",
+                        "description": "Interactive charts generated from JSON"
+                    },
+                    {
+                        "id": "matplotlib_images",
+                        "label": "Matplotlib Images",
+                        "description": "Images generated from Matplotlib"
+                    },
+                    {
+                        "id": "plotly_charts",
+                        "label": "Plotly Charts",
+                        "description": "Interactive charts generated from Plotly"
+                    }
+                ]
+            },
+            "subsections": {
+                "chanterelle_charts": {
+                    "items_per_row": 2,
+                    "items": [
+                        {
+                            "$href": "graphs/sepal_data.json"
+                        },
+                        {
+                            "$href": "graphs/petal_data.json"
+                        }
+                    ]
+                },
+                "matplotlib_images": {
+                    "items_per_row": 2,
+                    "items": [
+                        {
+                            "type": "image",
+                            "title": "Sepal Length vs Sepal Width",
+                            "file_path": "graphs/sepal_length_vs_width.png"
+                        },
+                        {
+                            "type": "image",
+                            "title": "Petal Length vs Petal Width",
+                            "file_path": "graphs/petal_length_vs_width.png"
+                        }
+                    ]
+                },
+                "plotly_charts": {
+                    "items_per_row": 2,
+                    "items": [
+                        {
+                            "type": "plotly",
+                            "title": "Sepal Length vs Sepal Width",
+                            "file_path": "graphs/sepal_plotly.json"
+                        },
+                        {
+                            "type": "plotly",
+                            "title": "Petal Length vs Petal Width",
+                            "file_path": "graphs/petal_plotly.json"
+                        }
+                    ]
+                }
+            },
+            "comment": "These scatter plots illustrate the relationships between sepal length and width, as well as petal length and width, for the different species of iris."
+        }
+    ]
+}

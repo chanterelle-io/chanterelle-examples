@@ -1,0 +1,15 @@
+{
+    "interactive_name": "SQL Assistant",
+    "version": "1.0.0",
+    "description": "AI data analyst that answers natural-language questions by querying a SQLite database. Powered by Anthropic Claude with tool-use. Requires ANTHROPIC_API_KEY env var. Optionally set DB_URI and SCHEMA_JSON_PATH to point to a different database.",
+    "description_short": "AI-powered SQL data analyst",
+    "allow_feedback": true,
+    "tags": {
+        "type": "assistant",
+        "domain": "data-analysis"
+    },
+    "python_environment": {
+        "type": "venv",
+        "path": "../venv"
+    }
+}

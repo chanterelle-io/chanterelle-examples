@@ -1,3 +1,11 @@
+python_handler_base.py
+python_interactive_handler_base.py
+
+archive/
+next/
+feedback.jsonl
+imdb_distilbert_model/
+
 # Environment variables and secrets
 .env
 .env.local
@@ -6,6 +14,7 @@
 .env.production.local
 *.env
 .envrc
+env-vars
 
 # API Keys and credentials
 **/api_keys.txt

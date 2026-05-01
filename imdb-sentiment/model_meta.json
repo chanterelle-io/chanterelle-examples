@@ -1,0 +1,67 @@
+{
+    "model_id": "imdb-sentiment-classifier",
+    "model_name": "IMDB Movie Review Sentiment Classifier",
+    "model_version": "2.0.0",
+    "tags": {
+        "task": "binary_classification",
+        "dataset": "imdb_reviews",
+        "domain": "text_analysis",
+        "nlp": "sentiment_analysis"
+    },
+    "description_short": "DistilBERT sentiment classifier for positive or negative movie reviews",
+    "description": "This model analyzes movie reviews and predicts whether they express positive or negative sentiment. It follows the Hugging Face sequence-classification workflow: DistilBERT tokenizer, DistilBERT sequence classifier, fine-tuning on the IMDb reviews dataset, and local inference from saved model artifacts.",
+    "inputs": [
+        {
+            "name": "review_text",
+            "label": "Movie Review Text",
+            "type": "textarea",
+            "required": true,
+            "description": "Raw text of a movie review in English. Can be any length — the model handles preprocessing automatically.",
+            "constraints": {
+                "placeholder": "This movie was absolutely fantastic! The acting was superb...",
+                "rows": 6
+            }
+        }
+    ],
+    "input_groupings": [
+        {
+            "grouping": "text_input",
+            "description": "Natural language text input",
+            "inputs": [
+                "review_text"
+            ]
+        }
+    ],
+    "outputs": [
+        {
+            "name": "sentiment",
+            "label": "Sentiment Classification",
+            "type": "string",
+            "description": "Predicted sentiment: 'Positive' or 'Negative'",
+            "options": [
+                {"value": "Positive", "label": "Positive"},
+                {"value": "Negative", "label": "Negative"}
+            ]
+        },
+        {
+            "name": "confidence",
+            "label": "Prediction Confidence",
+            "type": "float",
+            "description": "Confidence score between 0 and 1, where higher values indicate more confident predictions",
+            "min": 0.0,
+            "max": 1.0
+        },
+        {
+            "name": "raw_score",
+            "label": "Raw Model Output",
+            "type": "float",
+            "description": "Raw sigmoid output where values > 0.5 indicate positive sentiment, < 0.5 indicate negative sentiment",
+            "min": 0.0,
+            "max": 1.0
+        }
+    ],
+    "python_environment": {
+        "type": "venv",
+        "path": "../venv"
+    }
+}

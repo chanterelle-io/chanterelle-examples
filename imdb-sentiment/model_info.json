@@ -1,0 +1,40 @@
+{
+  "model_type": "IMDB Sentiment Classifier (Hugging Face DistilBERT)",
+  "architecture": "DistilBERT sequence classification",
+  "base_model": "distilbert/distilbert-base-uncased",
+  "dataset": "imdb",
+  "input": "raw_text",
+  "output": "sentiment (NEGATIVE or POSITIVE)",
+  "training_args": {
+    "epochs": 2,
+    "device": "mps",
+    "train_batch_size": 4,
+    "eval_batch_size": 4,
+    "gradient_accumulation_steps": 4,
+    "learning_rate": 2e-05,
+    "weight_decay": 0.01,
+    "max_length": 256
+  },
+  "evaluation": {
+    "eval_loss": 0.3049671947956085,
+    "eval_accuracy": 0.91352,
+    "eval_runtime": 221.7639,
+    "eval_samples_per_second": 112.732,
+    "eval_steps_per_second": 28.183,
+    "epoch": 2.0
+  },
+  "example_predictions": [
+    {
+      "label": "POSITIVE",
+      "score": 0.998237133026123
+    },
+    {
+      "label": "NEGATIVE",
+      "score": 0.9977486729621887
+    },
+    {
+      "label": "NEGATIVE",
+      "score": 0.5923997759819031
+    }
+  ]
+}
